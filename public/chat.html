@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chat App</title>
+    <link rel="icon" href="/img/favicon.png" />
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
+
+</head>
+
+<body>
+    <div class="chat">
+        <div id="sidebar" class="chat__sidebar">
+            <div></div>
+
+        </div>
+        <div class="chat__main">
+            <h2 class="toolbar">Chat App</h2>
+            <div id="messages" class="chat__messages"></div>
+            <div class="compose">
+                <form id="message-form">
+                    <input name="message" id="message" required autocomplete="off" />
+                    <button id="sendMessage">Send</button>
+                </form>
+                <button id="sendLocation">Send Location</button>
+            </div>
+
+
+
+        </div>
+
+    </div>
+    <script id="message-template" type="text/html">
+
+<div style="display:flex">
+    <div class="{{userClass}}" title="{{user}}">
+        {{userInitials}}
+    </div>
+    <div class="{{divClass}}">
+        <p class="message-content">{{message}}</p>
+        <div class="message-timestamp-left">{{createdAt}}</div>
+    </div>
+
+        
+
+<!-- <div class="message">
+    <p><span class="message__name">{{user}}</span>
+        <span class="message__meta">{{createdAt}}</span></p>
+<p> {{message}}</p>
+</div> -->
+</script>
+    <script id="location-template" type="text/html">
+        <div style="display:flex">
+            <div class="{{userClass}}" title="{{user}}">
+                {{userInitials}}
+            </div>
+            <div class="{{divClass}}">
+                <p class="message-content">  <img alt="" src="./img/location.png" width="15px" height="15px"/>
+                    <a target="_blank" class="location" href="{{location}}">My current location</a></p>
+                <div class="message-timestamp-left">{{createdAt}}</div>
+            </div>
+        
+<!-- <div> <p><span class="message__name">{{user}}</span>
+    <span class="message__meta">{{createdAt}}</span></p>
+<a target="_blank" href="{{location}}">Location</a>
+</div> -->
+</script>
+    <script id="sidebar-template" type="text/html">
+    <div> <h2 class="room-title">
+        <img alt="" src="./img/room.png" width="30px" height="30px"/>
+        {{room}}</h2>
+        <h3 class="list-title">
+            <img alt="" src="./img/users.jpg" width="30px" height="30px"/> Users</h3>
+        <ol class="users">
+{{#users}}
+<li class="user">{{username}}</li>
+{{/users}}
+        </ol>
+    </div>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+
+    <script src="js/chat.js"></script>
+
+</body>
+
+</html>
